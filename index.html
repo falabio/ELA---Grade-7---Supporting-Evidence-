@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morayo ELA - Week 2 Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Fade transition for slides */
+        .slide-enter {
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Highlight colors for SPED visual breakdown */
+        .hl-claim { background-color: #fef08a; color: #854d0e; padding: 0.1rem 0.4rem; border-radius: 0.25rem; font-weight: bold; }
+        .hl-evidence { background-color: #bbf7d0; color: #166534; padding: 0.1rem 0.4rem; border-radius: 0.25rem; font-weight: bold; }
+        .hl-bridge { background-color: #bfdbfe; color: #1e3a8a; padding: 0.1rem 0.4rem; border-radius: 0.25rem; font-weight: bold; }
+    </style>
+</head>
+<body class="bg-slate-900 min-h-screen flex flex-col items-center justify-center p-4 font-sans selection:bg-orange-500 selection:text-white">
+
+    <!-- Main Presentation Container -->
+    <div class="w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col h-[75vh] min-h-[500px]">
+        
+        <!-- Header -->
+        <div class="bg-orange-700 p-4 flex justify-between items-center text-white border-b-4 border-orange-500">
+            <h1 class="text-xl font-bold uppercase tracking-wider flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                Morayo's ELA Curriculum
+            </h1>
+            <div class="flex items-center gap-4">
+                <span class="text-orange-100 font-medium">Morayo | Grade 7 ELA</span>
+                <span id="slide-counter" class="bg-orange-800 px-3 py-1 rounded-full text-sm font-mono shadow-inner">
+                    Slide 1 / X
+                </span>
+            </div>
+        </div>
+
+        <!-- Slide Content Area -->
+        <div id="slide-content" class="flex-1 p-10 md:p-16 flex flex-col justify-center relative bg-slate-50 overflow-y-auto">
+            <!-- Content injected via JS -->
+        </div>
+
+        <!-- Footer Controls -->
+        <div class="bg-slate-100 p-4 border-t border-slate-200 flex justify-between items-center">
+            <button id="btn-prev" class="flex items-center justify-center px-6 py-3 rounded-lg font-bold text-slate-600 bg-white border border-slate-300 hover:bg-slate-50 hover:text-orange-600 disabled:opacity-40 transition-all shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" /></svg>
+                Previous
+            </button>
+            
+            <div id="teacher-note" class="text-sm font-semibold text-slate-500 uppercase tracking-wide hidden md:block">
+                <!-- Teacher prompt injected here -->
+            </div>
+
+            <button id="btn-next" class="flex items-center justify-center px-8 py-3 rounded-lg font-bold text-white bg-orange-600 hover:bg-orange-700 disabled:opacity-40 transition-all shadow-md">
+                Next
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // Slide Data (33 Screens)
+        const slides = [
+            // INTRO
+            {
+                subtitle: "Getting Started",
+                content: `
+                    <div class="text-center space-y-8">
+                        <h2 class="text-5xl md:text-7xl font-black text-slate-800 tracking-tight">Foundations of Argument</h2>
+                        <p class="text-2xl text-slate-600 font-medium">Week 2: Supporting Evidence</p>
+                    </div>
+                `,
+                note: "Welcome Morayo. Let's get to work."
+            },
+            {
+                subtitle: "Lesson Goals",
+                content: `
+                    <div class="text-center space-y-8 w-full max-w-3xl">
+                        <h2 class="text-4xl font-black text-slate-800 tracking-tight mb-8">What are we doing today?</h2>
+                        <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-200 text-left space-y-6">
+                            <div class="flex items-start gap-4">
+                                <span class="bg-orange-100 text-orange-800 font-bold px-4 py-2 rounded-lg text-xl">1</span>
+                                <p class="text-2xl text-slate-700">Learn how to identify details that prove a point.</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="bg-orange-100 text-orange-800 font-bold px-4 py-2 rounded-lg text-xl">2</span>
+                                <p class="text-2xl text-slate-700">Use the word <strong>"Because"</strong> to bridge ideas together.</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                note: "Make her read these out loud. Ensure she understands the goals."
+            },
+            
+            // CLAIMS
+            {
+                subtitle: "Part 1: The Claim",
+                content: `
+                    <div class="space-y-8 max-w-4xl mx-auto w-full">
+                        <div class="bg-white p-10 rounded-3xl shadow-md border-l-8 border-yellow-400">
+                            <h2 class="text-4xl font-black text-slate-800 mb-6 flex items-center">
+                                <span class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-lg mr-4">CLAIM</span>
+                            </h2>
+                            <p class="text-3xl text-slate-700 font-medium leading-relaxed">A <span class="text-yellow-600 font-bold">claim</span> is a statement you believe to be true. It is an opinion or a point you are trying to argue.</p>
+                        </div>
+                    </div>
+                `,
+                note: "Emphasize that a claim is an OPINION, not a universal fact."
+            },
+            {
+                subtitle: "Claim Examples",
+                content: `
+                    <div class="text-center space-y-8 w-full max-w-4xl">
+                        <h2 class="text-3xl font-bold text-slate-600 mb-8">Examples of Claims</h2>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200 shadow-sm text-left">
+                                <p class="text-3xl text-slate-800 font-bold">"Recess should be longer."</p>
+                            </div>
+                            <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200 shadow-sm text-left">
+                                <p class="text-3xl text-slate-800 font-bold">"Summer is the best season of the year."</p>
+                            </div>
+                            <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200 shadow-sm text-left">
+                                <p class="text-3xl text-slate-800 font-bold">"Skateboarding is a real sport."</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                note: "Ask: Why are these claims? (Because someone could disagree with them)."
+            },
+            {
+                subtitle: "What is NOT a Claim?",
+                content: `
+                    <div class="text-center space-y-8 w-full max-w-4xl">
+                        <h2 class="text-4xl font-black text-red-600 mb-8">What is NOT a claim?</h2>
+                        <p class="text-2xl text-slate-700 font-medium mb-8">A basic FACT is not a claim. A claim must be something you can argue.</p>
+                        <div class="flex flex-col md:flex-row gap-6 justify-center">
+                            <div class="bg-red-50 p-8 rounded-xl border border-red-200 shadow-sm w-full md:w-1/2">
+                                <h3 class="font-bold text-red-800 text-xl mb-4">NOT A CLAIM (Fact)</h3>
+                                <p class="text-2xl">"Spiders have eight legs."</p>
+                            </div>
+                            <div class="bg-yellow-50 p-8 rounded-xl border border-yellow-200 shadow-sm w-full md:w-1/2">
+                                <h3 class="font-bold text-yellow-800 text-xl mb-4">CLAIM (Arguable)</h3>
+                                <p class="text-2xl">"Spiders are the scariest bugs."</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                note: "Fact vs. Opinion. A claim is a strong opinion."
+            },
+            {
+                subtitle: "Knowledge Check 1",
+                content: `
+                    <div class="text-center space-y-8 w-full max-w-3xl">
+                        <h2 class="text-3xl font-bold text-slate-700 mb-8">Is this a CLAIM?</h2>
+                        <div class="bg-white p-10 rounded-2xl shadow-lg border border-slate-200">
+                            <p class="text-4xl font-black text-slate-800">"Chocolate ice cream is the best dessert."</p>
+                        </div>
+                        <div class="flex gap-4 justify-center mt-8">
+                            <button class="px-8 py-4 bg-yellow-400 text-yellow-900 font-bold text-2xl rounded-xl shadow-md">YES</button>
+                            <button class="px-8 py-4 bg-slate-200 text-slate-600 font-bold text-2xl rounded-xl shadow-md">NO</button>
+                        </div>
+                    </div>
+                `,
+                note: "Wait for her to answer. The answer is YES (it's an opinion)."
+            },
+            {
+                subtitle: "Knowledge Check 2",
+                content: `
+                    <div class="text-center space-y-8 w-full max-w-3xl">
+                        <h2 class="text-3xl font-bold text-slate-700 mb-8">Is this a CLAIM?</h2>
+                        <div class="bg-white p-10 rounded-2xl shadow-lg border border-slate-200">
+                            <p class="text-4xl font-black text-slate-800">"Ice cream is kept in the freezer."</p>
+                        </div>
+                        <div class="flex gap-4 justify-center mt-8">
+                            <button class="px-8 py-4 bg-slate-200 text-slate-600 font-bold text-2xl rounded-xl shadow-md">YES</button>
+                            <button class="px-8 py-4 bg-green-400 text-green-900 font-bold text-2xl rounded-xl shadow-md">NO</button>
+                        </div>
+                    </div>
+                `,
+                note: "Wait for her to answer. The answer is NO (it's just a fact)."
+            },
+
+            // EVIDENCE
+            {
+                subtitle: "Part 2: Evidence",
+                content: `
+                    <div class="space-y-8 max-w-4xl mx-auto w-full">
+                        <div class="bg-white p-10 rounded-3xl shadow-md border-l-8 border-green-500">
+                            <h2 class="text-4xl font-black text-slate-800 mb-6 flex items-center">
+                                <span class="bg-green-100 text-green-800 px-4 py-2 rounded-lg mr-4">EVIDENCE</span>
+                            </h2>
+                            <p class="text-3xl text-slate-700 font-medium leading-relaxed">The <span class="text-green-600 font-bold">proof</span> (facts, data, details) that shows exactly WHY your claim is true.</p>
+                        </div>
+                    </div>
+                `,
+                note: "Evidence is the proof. You cannot have an argument without proof."
+            },
+            {
+                subtitle: "How Evidence Supports a Claim",
+                content: `
+                    <div class="text-center space-y-6 w-full max-w-4xl">
+                        <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200 shadow-sm text-left">
+                            <span class="text-sm font-bold text-yellow-600 uppercase tracking-widest">The Claim</span>
+                            <p class="text-2xl text-slate-800 font-bold mt-2">"Riding a bike to school is a great idea."</p>
+                        </div>
+                        <div class="py-4">
+                            <svg class="w-10 h-10 mx-auto text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-xl border border-green-200 shadow-sm text-left">
+                            <span class="text-sm font-bold text-green-600 uppercase tracking-widest">The Evidence (Proof)</span>
+                            <p class="text-2xl text-slate-800 font-bold mt-2">"It provides daily cardiovascular exercise."</p>
+                        </div>
+                    </div>
+                `,
+                note: "See how the green text proves the yellow text?"
+            },
+            {
+                subtitle: "How Evidence Supports a Claim 2",
+                content: `
+                    <div class="text-center space-y-6 w-full max-w-4xl">
+                        <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200 shadow-sm text-left">
+                            <span class="text-sm font-bold text-yellow-600 uppercase tracking-widest">The Claim</span>
+                            <p class="text-2xl text-slate-800 font-bold mt-2">"Learning to cook is a useful skill."</p>
+                        </div>
+                        <div class="py-4">
+                            <svg class="w-10 h-10 mx-auto text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-xl border border-green-200 shadow-sm text-left">
+                            <span class="text-sm font-bold text-green-600 uppercase tracking-widest">The Evidence (Proof)</span>
+                            <p class="text-2xl text-slate-800 font-bold mt-2">"It helps people save money instead of eating at restaurants."</p>
+                        </div>
+                    </div>
+                `,
+                note: "Again, the green fact proves the yellow opinion."
+            },
+            {
+                subtitle: "Summary: Claim vs Evidence",
+                content: `
+                    <div class="flex flex-col md:flex-row gap-8 w-full max-w-5xl justify-center">
+                        <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-yellow-400 flex-1">
+                            <h3 class="text-3xl font-black text-slate-800 mb-4 text-center">CLAIM</h3>
+                            <ul class="text-xl space-y-4 text-slate-600 font-medium">
+                                <li>⭐ Your opinion</li>
+                                <li>⭐ What you believe</li>
+                                <li>⭐ Can be argued</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-8 rounded-2xl shadow-md border-t-8 border-green-500 flex-1">
+                            <h3 class="text-3xl font-black text-slate-800 mb-4 text-center">EVIDENCE</h3>
+                            <ul class="text-xl space-y-4 text-slate-600 font-medium">
+                                <li>🔍 Facts and Data</li>
+                                <li>🔍 Quotes from text</li>
+                                <li>🔍 Can be proven</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                note: "Have her summarize the difference in her own words."
+            },
+
+            // THE BRIDGE
+            {
+                subtitle: "Part 3: The Bridge",
+                content: `
+                    <div class="text-center space-y-8 w-full max-w-3xl">
+                        <h2 class="text-4xl font-black text-slate-800 tracking-tight">Connecting the Pieces</h2>
+                        <p class="text-2xl text-slate-600 font-medium leading-relaxed">A claim without evidence is just complaining. Evidence without a claim is just random facts. We must connect them.</p>
+                    </div>
+                `,
+                note: "We need a bridge word to glue them together."
+            },
+            {
+                subtitle: "The Magic Word",
+                content: `
+                    <div class="text-center space-y-8 w-full max-w-4xl">
+                        <p class="text-2xl text-slate-600 font-medium">The best bridge word to connect a Claim and Evidence is:</p>
+                        <div class="bg-blue-100 p-12 rounded-3xl shadow-inner border-4 border-blue-300 transform scale-105">
+                            <h2 class="text-7xl font-black text-blue-800 tracking-widest uppercase">BECAUSE</h2>
+                        </div>
+                    </div>
+                `,
+                note: "Because = The Bridge."
+            },
+            {
+                subtitle: "The Formula",
+                content: `
+                    <div class="text-center space-y-8 w-full max-w-4xl">
+                        <h2 class="text-3xl font-bold text-slate-600 mb-8">Memorize this formula:</h2>
+                        <div class="bg-slate-800 text-white p-8 rounded-3xl shadow-xl flex flex-col md:flex-row items-center justify-center gap-4 text-3xl font-bold">
+                            <span class="hl-claim text-yellow-800 px-6 py-3">CLAIM</span>
+                            <span class="text-slate-400">+</span>
+                            <span class="hl-bridge px-6 py-3">BECAUSE</span>
+                            <span class="text-slate-400">+</span>
+                            <span class="hl-evidence text-green-800 px-6 py-3">EVIDENCE</span>
+                        </div>
+                    </div>
+                `,
+                note: "Make her read the formula: Claim plus Because plus Evidence."
+            },
+            {
+                subtitle: "The Formula in Action",
+                content: `
+                    <div class="space-y-8 max-w-4xl mx-auto w-full">
+                        <p class="text-2xl text-slate-600 text-center font-medium mb-8">Let's build a complete argument sentence.</p>
+                        
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-left">
+                            <p class="text-3xl text-slate-800 leading-relaxed font-medium">
+                                <span class="hl-claim">Riding a bike to school is a great idea</span> 
+                                <span class="hl-bridge mx-2">because</span> 
+                                <span class="hl-evidence">it provides daily cardiovascular exercise.</span>
+                            </p>
+                        </div>
+                    </div>
+                `,
+                note: "Point out the three distinct parts."
+            },
+            {
+                subtitle: "The Formula in Action 2",
+                content: `
+                    <div class="space-y-8 max-w-4xl mx-auto w-full">
+                        <p class="text-2xl text-slate-600 text-center font-medium mb-8">Let's build another complete argument sentence.</p>
+                        
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-left">
+                            <p class="text-3xl text-slate-800 leading-relaxed font-medium">
+                                <span class="hl-claim">Learning to cook is a useful skill</span> 
+                                <span class="hl-bridge mx-2">because</span> 
+                                <span class="hl-evidence">it helps people save money instead of eating at restaurants.</span>
+                            </p>
+                        </div>
+                    </div>
+                `,
+                note: "She will have to do exactly this in Part 2 of her worksheet."
+            },
+
+            // MATCHING PRACTICE
+            {
+                subtitle: "Part 4: Matching Practice",
+                content: `
+                    <div class="text-center space-y-8 w-full max-w-3xl">
+                        <h2 class="text-5xl font-black text-slate-800 tracking-tight">Let's Practice!</h2>
+                        <p class="text-2xl text-slate-600 font-medium leading-relaxed">I will show you a CLAIM.<br>You must pick the correct EVIDENCE to prove it.</p>
+                    </div>
+                `,
+                note: "This simulates Part 1 of her worksheet."
+            },
+            {
+                subtitle: "Practice 1",
+                content: `
+                    <div class="space-y-6 max-w-4xl mx-auto w-full">
+                        <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200">
+                            <span class="text-sm font-bold text-yellow-600 uppercase">The Claim</span>
+                            <p class="text-3xl font-black text-slate-800 mt-2">"Bicycles are better for cities than cars."</p>
+                        </div>
+
+                        <p class="text-xl text-slate-600 font-medium text-center mt-8">Which evidence proves this?</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-white p-6 rounded-xl border-2 border-slate-200 shadow-sm">
+                                <span class="font-bold text-slate-400 mb-2 block">Option A</span>
+                                <p class="text-xl">Bicycles have two wheels and handlebars.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border-2 border-slate-200 shadow-sm">
+                                <span class="font-bold text-slate-400 mb-2 block">Option B</span>
+                                <p class="text-xl">Bicycles do not produce toxic air pollution.</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                note: "Force her to choose and explain WHY."
+            },
+            {
+                subtitle: "Answer 1",
+                content: `
+                    <div class="space-y-6 max-w-4xl mx-auto w-full text-center">
+                        <h2 class="text-4xl font-black text-green-600 mb-8">Correct Answer: Option B</h2>
+                        
+                        <div class="bg-white p-8 rounded-2xl shadow-md border-2 border-green-400 text-left">
+                            <p class="text-2xl text-slate-800 leading-relaxed font-medium">
+                                <span class="hl-claim">Bicycles are better for cities</span> 
+                                <span class="hl-bridge">because</span> 
+                                <span class="hl-evidence">they do not produce toxic air pollution.</span>
+                            </p>
+                        </div>
+                    </div>
+                `,
+                note: "Option A was just a fact. It didn't prove they were BETTER for cities."
+            },
+            {
+                subtitle: "Practice 2",
+                content: `
+                    <div class="space-y-6 max-w-4xl mx-auto w-full">
+                        <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200">
+                            <span class="text-sm font-bold text-yellow-600 uppercase">The Claim</span>
+                            <p class="text-3xl font-black text-slate-800 mt-2">"Everyone should learn how to swim."</p>
+                        </div>
+
+                        <p class="text-xl text-slate-600 font-medium text-center mt-8">Which evidence proves this?</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-white p-6 rounded-xl border-2 border-slate-200 shadow-sm">
+                                <span class="font-bold text-slate-400 mb-2 block">Option A</span>
+                                <p class="text-xl">Swimming can save your life in a water emergency.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border-2 border-slate-200 shadow-sm">
+                                <span class="font-bold text-slate-400 mb-2 block">Option B</span>
+                                <p class="text-xl">Pools are filled with water and chlorine.</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                note: "Ask: Which one proves it is something you SHOULD do?"
+            },
+            {
+                subtitle: "Answer 2",
+                content: `
+                    <div class="space-y-6 max-w-4xl mx-auto w-full text-center">
+                        <h2 class="text-4xl font-black text-green-600 mb-8">Correct Answer: Option A</h2>
+                        
+                        <div class="bg-white p-8 rounded-2xl shadow-md border-2 border-green-400 text-left">
+                            <p class="text-2xl text-slate-800 leading-relaxed font-medium">
+                                <span class="hl-claim">Everyone should learn how to swim</span> 
+                                <span class="hl-bridge">because</span> 
+                                <span class="hl-evidence">it can save your life in a water emergency.</span>
+                            </p>
+                        </div>
+                    </div>
+                `,
+                note: "Option B is a fact, but it doesn't support the claim."
+            },
+            {
+                subtitle: "Practice 3",
+                content: `
+                    <div class="space-y-6 max-w-4xl mx-auto w-full">
+                        <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200">
+                            <span class="text-sm font-bold text-yellow-600 uppercase">The Claim</span>
+                            <p class="text-3xl font-black text-slate-800 mt-2">"Museums are great places for field trips."</p>
+                        </div>
+
+                        <p class="text-xl text-slate-600 font-medium text-center mt-8">Which evidence proves this?</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-white p-6 rounded-xl border-2 border-slate-200 shadow-sm">
+                                <span class="font-bold text-slate-400 mb-2 block">Option A</span>
+                                <p class="text-xl">Many museums have gift shops near the exit.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border-2 border-slate-200 shadow-sm">
+                                <span class="font-bold text-slate-400 mb-2 block">Option B</span>
+                                <p class="text-xl">They allow students to see real historical artifacts up close.</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                note: "Make her choose."
+            },
+            {
+                subtitle: "Answer 3",
+                content: `
+                    <div class="space-y-6 max-w-4xl mx-auto w-full text-center">
+                        <h2 class="text-4xl font-black text-green-600 mb-8">Correct Answer: Option B</h2>
+                        
+                        <div class="bg-white p-8 rounded-2xl shadow-md border-2 border-green-400 text-left">
+                            <p class="text-2xl text-slate-800 leading-relaxed font-medium">
+                                <span class="hl-claim">Museums are great places for field trips</span> 
+                                <span class="hl-bridge">because</span> 
+                                <span class="hl-evidence">they allow students to see real historical artifacts up close.</span>
+                            </p>
+                        </div>
+                    </div>
+                `,
+                note: "Reinforce the 'Because' bridge."
+            },
+            {
+                subtitle: "Practice 4",
+                content: `
+                    <div class="space-y-6 max-w-4xl mx-auto w-full">
+                        <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-200">
+                            <span class="text-sm font-bold text-yellow-600 uppercase">The Claim</span>
+                            <p class="text-3xl font-black text-slate-800 mt-2">"Watching too much TV is bad for your health."</p>
+                        </div>
+
+                        <p class="text-xl text-slate-600 font-medium text-center mt-8">Which evidence proves this?</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 mt-4">
+                            <div class="bg-white p-6 rounded-xl border-2 border-slate-200 shadow-sm">
+                                <span class="font-bold text-slate-400 mb-2 block">Option A</span>
+                                <p class="text-xl">It leads to a severe lack of physical activity.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border-2 border-slate-200 shadow-sm">
+                                <span class="font-bold text-slate-400 mb-2 block">Option B</span>
+                                <p class="text-xl">Televisions require electricity to run.</p>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                note: "Final matching practice."
+            },
+            {
+                subtitle: "Answer 4",
+                content: `
+                    <div class="space-y-6 max-w-4xl mx-auto w-full text-center">
+                        <h2 class="text-4xl font-black text-green-600 mb-8">Correct Answer: Option A</h2>
+                        
+                        <div class="bg-white p-8 rounded-2xl shadow-md border-2 border-green-400 text-left">
+                            <p class="text-2xl text-slate-800 leading-relaxed font-medium">
+                                <span class="hl-claim">Watching too much TV is bad for your health</span> 
+                                <span class="hl-bridge">because</span> 
+                                <span class="hl-evidence">it leads to a severe lack of physical activity.</span>
+                            </p>
+                        </div>
+                    </div>
+                `,
+                note: "She is ready for Part 1 and 2 of the worksheet."
+            },
+
+            // TEXT EXTRACTION
+            {
+                subtitle: "Part 5: Text Extraction",
+                content: `
+                    <div class="text-center space-y-8 w-full max-w-3xl">
+                        <h2 class="text-4xl font-black text-slate-800 tracking-tight">Finding Proof in Text</h2>
+                        <p class="text-2xl text-slate-600 font-medium leading-relaxed">Authors don't usually hand you a list of claims and evidence. You have to hunt for them inside paragraphs.</p>
+                    </div>
+                `,
+                note: "Transition to reading comprehension (Part 3 of the worksheet)."
+            },
+            {
+                subtitle: "Analyzing a Text",
+                content: `
+                    <div class="max-w-4xl mx-auto w-full space-y-6">
+                        <p class="text-xl text-slate-600 font-medium">Read the following paragraph carefully:</p>
+                        <div class="bg-slate-100 p-8 rounded-2xl border-2 border-slate-300 text-2xl leading-relaxed text-slate-800 italic shadow-inner">
+                            "Adopting pets from animal shelters is the best choice. First, it gives a home to an animal that might otherwise be put down. Second, shelter pets are usually already vaccinated and microchipped."
+                        </div>
+                    </div>
+                `,
+                note: "Have her read this out loud."
+            },
+            {
+                subtitle: "Find the Claim",
+                content: `
+                    <div class="max-w-4xl mx-auto w-full space-y-6">
+                        <p class="text-xl text-slate-600 font-medium mb-4">What is the author trying to prove? (The Claim)</p>
+                        
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                            <span class="bg-yellow-200 text-yellow-900 font-bold px-4 py-2 rounded-lg text-lg">CLAIM</span>
+                            <p class="text-2xl font-bold text-slate-700">"Adopting pets from animal shelters is the best choice."</p>
+                        </div>
+                        <p class="text-lg text-slate-500 italic mt-4">Notice how this is the main opinion of the paragraph.</p>
+                    </div>
+                `,
+                note: "The claim is almost always the first or last sentence."
+            },
+            {
+                subtitle: "Find the Evidence",
+                content: `
+                    <div class="max-w-4xl mx-auto w-full space-y-6">
+                        <p class="text-xl text-slate-600 font-medium mb-4">What proof does the author give?</p>
+                        
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                            <span class="bg-green-200 text-green-900 font-bold px-4 py-2 rounded-lg text-lg">EVIDENCE 1</span>
+                            <p class="text-2xl font-medium text-slate-700">"It gives a home to an animal that might otherwise be put down."</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                            <span class="bg-green-200 text-green-900 font-bold px-4 py-2 rounded-lg text-lg">EVIDENCE 2</span>
+                            <p class="text-2xl font-medium text-slate-700">"Shelter pets are usually already vaccinated and microchipped."</p>
+                        </div>
+                    </div>
+                `,
+                note: "See how the author provided exactly TWO pieces of proof for their claim?"
+            },
+            {
+                subtitle: "Analyzing Text 2",
+                content: `
+                    <div class="max-w-4xl mx-auto w-full space-y-6">
+                        <p class="text-xl text-slate-600 font-medium">Read this new paragraph:</p>
+                        <div class="bg-slate-100 p-8 rounded-2xl border-2 border-slate-300 text-2xl leading-relaxed text-slate-800 italic shadow-inner">
+                            "Learning a second language is highly valuable. First, it allows you to easily communicate with people from different cultures. Furthermore, it has been shown to improve memory and problem-solving skills."
+                        </div>
+                    </div>
+                `,
+                note: "Read it. Ask her to identify the claim before you change slides."
+            },
+            {
+                subtitle: "Find the Claim (Text 2)",
+                content: `
+                    <div class="max-w-4xl mx-auto w-full space-y-6">
+                        <p class="text-xl text-slate-600 font-medium mb-4">What is the author trying to prove? (The Claim)</p>
+                        
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                            <span class="bg-yellow-200 text-yellow-900 font-bold px-4 py-2 rounded-lg text-lg">CLAIM</span>
+                            <p class="text-2xl font-bold text-slate-700">"Learning a second language is highly valuable."</p>
+                        </div>
+                    </div>
+                `,
+                note: "Confirm she got this right."
+            },
+            {
+                subtitle: "Find the Evidence (Text 2)",
+                content: `
+                    <div class="max-w-4xl mx-auto w-full space-y-6">
+                        <p class="text-xl text-slate-600 font-medium mb-4">What is the proof? (Two pieces)</p>
+                        
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                            <span class="bg-green-200 text-green-900 font-bold px-4 py-2 rounded-lg text-lg">EVIDENCE 1</span>
+                            <p class="text-2xl font-medium text-slate-700">"It allows you to easily communicate with people from different cultures."</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                            <span class="bg-green-200 text-green-900 font-bold px-4 py-2 rounded-lg text-lg">EVIDENCE 2</span>
+                            <p class="text-2xl font-medium text-slate-700">"It has been shown to improve memory and problem-solving skills."</p>
+                        </div>
+                    </div>
+                `,
+                note: "This exact format is what she will do in Part 3 of the worksheet."
+            },
+
+            // WRAP UP
+            {
+                subtitle: "Review",
+                content: `
+                    <div class="text-center space-y-8 w-full max-w-4xl">
+                        <h2 class="text-4xl font-black text-slate-800 mb-8">The Golden Rule of Argument</h2>
+                        <div class="bg-slate-800 text-white p-10 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-6">
+                            <p class="text-3xl font-bold">Never make a <span class="text-yellow-400">CLAIM</span></p>
+                            <p class="text-3xl font-bold">without connecting it with <span class="text-blue-400">BECAUSE</span></p>
+                            <p class="text-3xl font-bold">to a piece of <span class="text-green-400">EVIDENCE</span>.</p>
+                        </div>
+                    </div>
+                `,
+                note: "Memorize this rule."
+            },
+            {
+                subtitle: "Your Turn",
+                content: `
+                    <div class="text-center space-y-8 flex flex-col items-center justify-center h-full w-full max-w-4xl mx-auto">
+                        <div class="bg-orange-100 p-6 rounded-full inline-block mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                        </div>
+                        <h2 class="text-5xl font-black text-slate-800">Time for the Worksheet</h2>
+                        <p class="text-2xl text-slate-600 font-medium">Open your Week 2 Google Sheet.</p>
+                        
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-left w-full">
+                            <ul class="space-y-4 text-xl text-slate-700 font-medium">
+                                <li class="flex items-center gap-3"><svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <strong>Part 1:</strong> Match Claims to the Evidence Bank (Column D)</li>
+                                <li class="flex items-center gap-3"><svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <strong>Part 2:</strong> Build the "Because" Bridge</li>
+                                <li class="flex items-center gap-3"><svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <strong>Part 3:</strong> Extract Claim & Evidence from Texts</li>
+                                <li class="flex items-center gap-3"><svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <strong>Part 4:</strong> Write your own complete argument</li>
+                            </ul>
+                        </div>
+                        <p class="text-orange-600 font-bold text-2xl uppercase tracking-widest mt-8 border-b-4 border-orange-600 pb-2">60 Minutes. No Excuses.</p>
+                    </div>
+                `,
+                note: "Close presentation. Direct student to the Google Sheet. Start the timer."
+            }
+        ];
+
+        let currentSlide = 0;
+        const slideContent = document.getElementById('slide-content');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        const slideCounter = document.getElementById('slide-counter');
+        const teacherNote = document.getElementById('teacher-note');
+
+        function renderSlide() {
+            const slide = slides[currentSlide];
+            
+            // Apply animation class
+            slideContent.innerHTML = ''; // Clear current
+            
+            setTimeout(() => {
+                slideContent.innerHTML = `
+                    <div class="slide-enter w-full h-full flex flex-col justify-start">
+                        <div class="mb-10 text-center md:text-left border-b border-slate-200 pb-4">
+                            <h2 class="text-sm font-bold text-orange-600 uppercase tracking-widest mb-1">${slide.subtitle}</h2>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center items-center w-full">
+                            ${slide.content}
+                        </div>
+                    </div>
+                `;
+            }, 10); // Tiny delay to re-trigger animation
+
+            // Update UI elements
+            slideCounter.textContent = `Slide ${currentSlide + 1} / ${slides.length}`;
+            teacherNote.innerHTML = `<span class="text-orange-600 mr-2">TUTOR NOTE:</span> ${slide.note}`;
+            
+            // Button states
+            btnPrev.disabled = currentSlide === 0;
+            if (currentSlide === slides.length - 1) {
+                btnNext.innerHTML = 'Finish <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>';
+                btnNext.classList.replace('bg-orange-600', 'bg-green-600');
+                btnNext.classList.replace('hover:bg-orange-700', 'hover:bg-green-700');
+            } else {
+                btnNext.innerHTML = 'Next <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>';
+                btnNext.classList.replace('bg-green-600', 'bg-orange-600');
+                btnNext.classList.replace('hover:bg-green-700', 'hover:bg-orange-700');
+            }
+        }
+
+        btnPrev.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                renderSlide();
+            }
+        });
+
+        btnNext.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                renderSlide();
+            } else {
+                alert("Presentation complete. Time to start the worksheet.");
+            }
+        });
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) {
+                currentSlide++;
+                renderSlide();
+            } else if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                currentSlide--;
+                renderSlide();
+            }
+        });
+
+        // Init
+        renderSlide();
+    </script>
+</body>
+</html>
